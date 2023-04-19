@@ -1,0 +1,31 @@
+<form>
+    <div *ngIf="errors" class="bg-danger text-white p-3 mt-2 rounded">{{errors}}</div>
+    <div class="row mt-3">
+        <div class="col">
+            <label for="preEncodedText" class="form-label">Text to be Encoded to base64</label>
+            <input 
+                [(ngModel)]="inputText" 
+                name="preEncodedText" 
+                #preEncodedText="ngModel" 
+                class="form-control" 
+                placeholder="Enter text here" 
+                max-length="4000"
+                [readOnly]="isEncoding"/>
+        </div>
+        <div class="col">
+            <label for="postEncodedText" class="form-label" disabled>Encoded base64 Text</label>
+            <input 
+                [(ngModel)]="encodedText" 
+                name="postEncodedText" 
+                #postEncodedText="ngModel" 
+                class="form-control" 
+                placeholder="No text encoded yet" 
+                readonly>
+
+            <div class="mt-3 float-end">
+                <button type="button" class="btn btn-secondary me-md-2" (click)="cancel()" *ngIf="isEncoding">Cancel</button>
+                <button type="button" class="btn btn-primary" (click)="encodedText && submit()" [disabled]="isEncoding">Convert <div id="loading" *ngIf="isEncoding"></div></button>
+            </div>
+        </div>
+    </div>
+</form>
